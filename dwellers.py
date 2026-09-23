@@ -5,6 +5,9 @@ A proof-of-concept for branching story games in Python.
 Run with: python3 dwellers.py
 """
 
+import time
+import os
+
 # Each "room" is a dictionary with a description and choices.
 # Each choice maps player input -> the key of the next room.
 rooms = {
@@ -181,6 +184,9 @@ def play():
 
         # Get player input, matched case-insensitively.
         player_input = input("\n> ").strip().lower()
+        
+        time.sleep(1.5)          # pause 1.5 seconds
+        os.system("clear")     # wipe the screen
 
         if player_input in room["choices"]:
             current = room["choices"][player_input]
@@ -192,4 +198,15 @@ if __name__ == "__main__":
     print("=" * 50)
     print("        THE CAVE")
     print("=" * 50)
-    play()
+    while True:
+        play()
+        again = input("\nWould you like to play again? (y/n): ").strip().lower()
+        if again != "y":
+            time.sleep(1)          # pause 1 seconds
+            print("\n"
+            "Thank you for playing Dwellers!\n"
+            "  -B, Creator")
+            time.sleep(3)          # pause 3 seconds
+            break
+        else:
+            os.system("clear")     # wipe the screen
